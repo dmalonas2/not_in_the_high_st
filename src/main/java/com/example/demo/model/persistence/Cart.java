@@ -95,7 +95,8 @@ public class Cart {
 		if(total == null) {
 			total = new BigDecimal(0);
 		}
-		total = total.add(item.getPrice());
+		initialTotalValue = initialTotalValue.add(item.getPrice());
+//		total = total.add(item.getPrice());
 	}
 	
 	public void removeItem(Item item) {
@@ -106,7 +107,8 @@ public class Cart {
 		if(total == null) {
 			total = new BigDecimal(0);
 		}
-		total = total.subtract(item.getPrice());
+		initialTotalValue = initialTotalValue.subtract(item.getPrice());
+//		total = total.subtract(item.getPrice());
 	}
 
 	public BigDecimal getInitialTotalValue() {

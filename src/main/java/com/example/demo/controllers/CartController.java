@@ -60,7 +60,6 @@ public class CartController {
 	public ResponseEntity<Cart> addTocart(@RequestBody ModifyCartRequest request) {
 
 		User user = userRepository.findByUsername(request.getUsername());
-
 		//CHECKS
 		if(user == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -70,9 +69,7 @@ public class CartController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 
-		Cart updatedCard = updateCartContentsService.updateCart(user, item.get(), request.getQuantity(), true);
-		cartRepository.save(updatedCard);
-		return ResponseEntity.ok(updatedCard);
+		return ResponseEntity.ok(updateCartContentsService.updateCart(user, item.get(), request.getQuantity(), true));
 	}
 
 
@@ -82,7 +79,6 @@ public class CartController {
 	public ResponseEntity<Cart> removeFromcart(@RequestBody ModifyCartRequest request) {
 
 		User user = userRepository.findByUsername(request.getUsername());
-
 		//CHECKS
 		if(user == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -92,10 +88,8 @@ public class CartController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 
-		Item itemToRemove = item.get();
-		Cart updatedCart = updateCartContentsService.removeItem(user, itemToRemove, request.getQuantity());
-		cartRepository.save(updatedCart);
-
-		return ResponseEntity.ok(updatedCart);
+		return ResponseEntity
+				.ok(updateCartContentsService.updateCart(user, item.get(), request.getQuantity(), false));
 	}
+
 }
