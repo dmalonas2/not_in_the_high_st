@@ -5,16 +5,13 @@ import com.example.demo.model.persistence.Cart;
 import com.example.demo.model.persistence.Item;
 import com.example.demo.model.persistence.repositories.CartRepository;
 import com.example.demo.model.persistence.repositories.ItemRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static org.hibernate.type.DoubleType.ZERO;
 
 @Service
 public class CheckoutServiceImpl implements CheckoutService{
@@ -49,8 +46,7 @@ public class CheckoutServiceImpl implements CheckoutService{
         //Total price threshold (e.g. £60) discount
         Cart priceThresholdDiscountedCart = getPriceThresholdCart(cart);
         //Quantity threshold discount
-        Cart quantityThresholdDiscountedCart = new Cart();
-        quantityThresholdDiscountedCart.setTotal(BigDecimal.valueOf(100000));
+        Cart quantityThresholdDiscountedCart = getQuantityThresholdCart(cart);
         //FUTURE--->Bundle of different products threshold dicount
         //*************************************
 
@@ -69,6 +65,45 @@ public class CheckoutServiceImpl implements CheckoutService{
             return priceThresholdDiscountedCart;
         }
         return quantityThresholdDiscountedCart;
+    }
+
+    private Cart getQuantityThresholdCart(Cart cart) {
+        Cart quantityThresholdCart = new Cart();
+        quantityThresholdCart.setInitialTotalValue(cart.getInitialTotalValue());
+        quantityThresholdCart.setTotal(cart.getTotal());
+        quantityThresholdCart.setItems(cart.getItems());
+        quantityThresholdCart.setId(cart.getId());
+        quantityThresholdCart.setUser(cart.getUser());
+        quantityThresholdCart.setMessage("Quantity based discount is applied");
+
+        BigDecimal totalDiscount = BigDecimal.ZERO;
+        BigDecimal cnt = new BigDecimal(0);
+        List<Long> idsChekcked = new ArrayList<>();
+        final var items = quantityThresholdCart.getItems();
+        final var size = items.size();
+        for (int i = 0; i < size; i++) {
+            if (idsChekcked.contains(items.get(i).getId()) ||
+                items.get(i).getQuantityDiscountValue().equals(BigDecimal.ZERO)) {
+                continue;
+            }
+            cnt = cnt.add(BigDecimal.valueOf(1));
+            final var quantityDiscountThreshold = items.get(i).getQuantityDiscountThreshold();
+            if (cnt.compareTo(quantityDiscountThreshold) == 0) {
+                for (int k = 0; k < size; k++) {
+                    if (items.get(k).getId() == items.get(i).getId()) {
+                        final var item = items.get(k);
+                        item.setDiscount(item.getPrice().subtract(item.getQuantityDiscountValue()));
+                        final BigDecimal discount = item.getDiscount();//items.get(k).getPrice().subtract(items.get(k).getQuantityDiscountValue());
+                        totalDiscount = totalDiscount.add(discount);
+                    }
+                }
+                idsChekcked.add(items.get(i).getId());
+            }
+
+        }
+        quantityThresholdCart.setTotal(cart.getTotal().subtract(totalDiscount));
+        quantityThresholdCart.setTotalDiscount(totalDiscount);
+        return quantityThresholdCart;
     }
 
     private List<Item> updateIndividualDiscountField(Cart cart) {
@@ -95,7 +130,7 @@ public class CheckoutServiceImpl implements CheckoutService{
             priceThresholdCart.setItems(cart.getItems());
             priceThresholdCart.setId(cart.getId());
             priceThresholdCart.setUser(cart.getUser());
-            priceThresholdCart.setMessage(cart.getMessage());
+//            priceThresholdCart.setMessage(cart.getMessage());
             priceThresholdCart.setTotal(getDiscountedPrice(initialTotalValue, DISCOUNT));
             priceThresholdCart.setTotalDiscount(initialTotalValue.subtract(priceThresholdCart.getTotal()));
             priceThresholdCart.setMessage(DISCOUNT + "% discount is applied for purchases that are above " + PRICE_DISCOUNT_THRESHOLD);

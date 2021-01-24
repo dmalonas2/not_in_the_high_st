@@ -35,6 +35,16 @@ public class Item {
 
 	@Column(nullable = false)
 	@JsonProperty
+	private BigDecimal quantityDiscountValue;
+
+
+	@Column(nullable = false)
+	@JsonProperty
+	private BigDecimal quantityDiscountThreshold;
+
+
+	@Column(nullable = false)
+	@JsonProperty
 	private String description;
 	
 	@Override
@@ -102,4 +112,22 @@ public class Item {
 	public void setDiscount(BigDecimal discount) {
 		this.discount = discount;
 	}
+
+
+
+	public BigDecimal getQuantityDiscountValue() { return quantityDiscountValue; }
+
+	public void setQuantityDiscountValue(BigDecimal quantityDiscountValue) {
+		this.quantityDiscountValue = quantityDiscountValue;
+	}
+
+	public void setQuantityDiscountThreshold(BigDecimal quantityDiscountThreshold) {
+		this.quantityDiscountThreshold = quantityDiscountThreshold;
+	}
+
+	public BigDecimal getQuantityDiscountThreshold() {
+		return this.quantityDiscountThreshold;
+	}
+
+
 }

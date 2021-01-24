@@ -1,3 +1,3 @@
-insert into item (name, price, discount, description) values ('Travel Card Holder', 9.25, 0, 'A holder for your travel card');
-insert into item (name, price, discount, description) values ('Personalised cufflinks', 45.00, 0, 'Cufflings with your initials');
-insert into item (name, price, discount, description) values ('Kids T-shirt', 19.95, 0, 'A T-shirt with dinosaurs')
+insert into item (name, price, discount, quantity_discount_value, quantity_discount_threshold, description) values ('Travel Card Holder', 9.25, 0, 8.50, 2, 'A holder for your travel card');
+insert into item (name, price, discount, quantity_discount_value, quantity_discount_threshold, description) values ('Personalised cufflinks', 45.00, 0, 45.00, 0, 'Cufflings with your initials');
+insert into item (name, price, discount, quantity_discount_value, quantity_discount_threshold, description) values ('Kids T-shirt', 19.95, 0, 19.95, 0, 'A T-shirt with dinosaurs')
