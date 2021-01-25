@@ -42,20 +42,11 @@ public class NotInTheHighStreetAppTests {
 		List<Item> items = new ArrayList<>();
 
 		//1, 2, 3
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 2L,"Personalised cufflinks", BigDecimal.valueOf(45.00), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(45.00), BigDecimal.valueOf(0), "Cufflings with your initials");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 2L, "Personalised cufflinks", 45.00, 45.00, 0, "Cufflings with your initials");
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(66.78));
 
@@ -65,21 +56,11 @@ public class NotInTheHighStreetAppTests {
 		cart.setItems(items);
 		cart.setTotal(BigDecimal.ZERO);
 		cart.setInitialTotalValue(BigDecimal.ZERO);
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
-		addItemToList(items, 2L,"Personalised cufflinks", BigDecimal.valueOf(45.00), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(45.00), BigDecimal.valueOf(0), "Cufflings with your initials");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
-
+		cart = getCart(cart, items, 2L, "Personalised cufflinks", 45.00, 45.00, 0, "Cufflings with your initials");
 
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(66.78));
@@ -90,20 +71,11 @@ public class NotInTheHighStreetAppTests {
 		cart.setItems(items);
 		cart.setTotal(BigDecimal.ZERO);
 		cart.setInitialTotalValue(BigDecimal.ZERO);
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
-		addItemToList(items, 2L,"Personalised cufflinks", BigDecimal.valueOf(45.00), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(45.00), BigDecimal.valueOf(0), "Cufflings with your initials");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 2L, "Personalised cufflinks", 45.00, 45.00, 0, "Cufflings with your initials");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(66.78));
 
@@ -113,20 +85,11 @@ public class NotInTheHighStreetAppTests {
 		cart.setItems(items);
 		cart.setTotal(BigDecimal.ZERO);
 		cart.setInitialTotalValue(BigDecimal.ZERO);
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 2L,"Personalised cufflinks", BigDecimal.valueOf(45.00), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(45.00), BigDecimal.valueOf(0), "Cufflings with your initials");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 2L, "Personalised cufflinks", 45.00, 45.00, 0, "Cufflings with your initials");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(66.78));
 
@@ -136,20 +99,11 @@ public class NotInTheHighStreetAppTests {
 		cart.setTotal(BigDecimal.ZERO);
 		cart.setInitialTotalValue(BigDecimal.ZERO);
 
-		addItemToList(items, 2L,"Personalised cufflinks", BigDecimal.valueOf(45.00), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(45.00), BigDecimal.valueOf(0), "Cufflings with your initials");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 2L, "Personalised cufflinks", 45.00, 45.00, 0, "Cufflings with your initials");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(66.78));
 
@@ -160,25 +114,23 @@ public class NotInTheHighStreetAppTests {
 		cart.setTotal(BigDecimal.ZERO);
 		cart.setInitialTotalValue(BigDecimal.ZERO);
 
-		addItemToList(items, 2L,"Personalised cufflinks", BigDecimal.valueOf(45.00), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(45.00), BigDecimal.valueOf(0), "Cufflings with your initials");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 2L, "Personalised cufflinks", 45.00, 45.00, 0, "Cufflings with your initials");
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(66.78));
 
 	}
 
+	private Cart getCart(Cart cart, List<Item> items, long l, String s, double v, double v2, int i, String s2) {
+		addItemToList(items, l, s, BigDecimal.valueOf(v), BigDecimal.valueOf(0),
+					  BigDecimal.valueOf(v2), BigDecimal.valueOf(i), s2);
+		setUpCartUtil(cart, items);
+		cart = checkoutService.applyCheckoutDetails(cart);
+		return cart;
+	}
 
 
 	@Test
@@ -190,20 +142,11 @@ public class NotInTheHighStreetAppTests {
 		List<Item> items = new ArrayList<>();
 
 		//1, 3, 1
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(36.95));
 
@@ -213,20 +156,11 @@ public class NotInTheHighStreetAppTests {
 		cart.setTotal(BigDecimal.ZERO);
 		cart.setInitialTotalValue(BigDecimal.ZERO);
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(36.95));
 
@@ -237,20 +171,11 @@ public class NotInTheHighStreetAppTests {
 		cart.setTotal(BigDecimal.ZERO);
 		cart.setInitialTotalValue(BigDecimal.ZERO);
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(36.95));
 	}
@@ -267,25 +192,13 @@ public class NotInTheHighStreetAppTests {
 		List<Item> items = new ArrayList<>();
 
 		//1, 2, 3, 1
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 2L,"Personalised cufflinks", BigDecimal.valueOf(45.00), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(45.00), BigDecimal.valueOf(0), "Cufflings with your initials");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 2L, "Personalised cufflinks", 45.00, 45.00, 0, "Cufflings with your initials");
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(73.76));
@@ -297,25 +210,13 @@ public class NotInTheHighStreetAppTests {
 		cart.setTotal(BigDecimal.ZERO);
 		cart.setInitialTotalValue(BigDecimal.ZERO);
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 2L,"Personalised cufflinks", BigDecimal.valueOf(45.00), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(45.00), BigDecimal.valueOf(0), "Cufflings with your initials");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 2L, "Personalised cufflinks", 45.00, 45.00, 0, "Cufflings with your initials");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(73.76));
 
@@ -327,25 +228,13 @@ public class NotInTheHighStreetAppTests {
 		cart.setTotal(BigDecimal.ZERO);
 		cart.setInitialTotalValue(BigDecimal.ZERO);
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 2L,"Personalised cufflinks", BigDecimal.valueOf(45.00), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(45.00), BigDecimal.valueOf(0), "Cufflings with your initials");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 2L, "Personalised cufflinks", 45.00, 45.00, 0, "Cufflings with your initials");
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(73.76));
 
@@ -356,25 +245,13 @@ public class NotInTheHighStreetAppTests {
 		cart.setTotal(BigDecimal.ZERO);
 		cart.setInitialTotalValue(BigDecimal.ZERO);
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
-		addItemToList(items, 2L,"Personalised cufflinks", BigDecimal.valueOf(45.00), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(45.00), BigDecimal.valueOf(0), "Cufflings with your initials");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 2L, "Personalised cufflinks", 45.00, 45.00, 0, "Cufflings with your initials");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(73.76));
 
@@ -386,25 +263,13 @@ public class NotInTheHighStreetAppTests {
 		cart.setTotal(BigDecimal.ZERO);
 		cart.setInitialTotalValue(BigDecimal.ZERO);
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 2L,"Personalised cufflinks", BigDecimal.valueOf(45.00), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(45.00), BigDecimal.valueOf(0), "Cufflings with your initials");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 2L, "Personalised cufflinks", 45.00, 45.00, 0, "Cufflings with your initials");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(73.76));
 
@@ -415,25 +280,13 @@ public class NotInTheHighStreetAppTests {
 		cart.setInitialTotalValue(BigDecimal.ZERO);
 
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 2L,"Personalised cufflinks", BigDecimal.valueOf(45.00), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(45.00), BigDecimal.valueOf(0), "Cufflings with your initials");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 2L, "Personalised cufflinks", 45.00, 45.00, 0, "Cufflings with your initials");
 
-		addItemToList(items,1L, "Travel Card Holder", BigDecimal.valueOf(9.25), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(8.50), BigDecimal.valueOf(2), "A holder for your travel card");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 1L, "Travel Card Holder", 9.25, 8.50, 2, "A holder for your travel card");
 
-		addItemToList(items, 3L, "Kids T-shirt", BigDecimal.valueOf(19.95), BigDecimal.valueOf(0),
-					  BigDecimal.valueOf(19.95), BigDecimal.valueOf(0), "A T-shirt with dinosaurs");
-		setUpCartUtil(cart, items);
-		cart = checkoutService.applyCheckoutDetails(cart);
+		cart = getCart(cart, items, 3L, "Kids T-shirt", 19.95, 19.95, 0, "A T-shirt with dinosaurs");
 
 		assertEquals(cart.getTotal().setScale(2, RoundingMode.CEILING), BigDecimal.valueOf(73.76));
 	}
