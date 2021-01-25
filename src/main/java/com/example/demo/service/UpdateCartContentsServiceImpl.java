@@ -53,38 +53,3 @@ public class UpdateCartContentsServiceImpl implements UpdateCartContentsService 
         return cart;
     }
 }
-
-
-
-
-
-
-
-
-
-//    @Override public Cart removeItem(User user, Item itemToRemove, int quantity) {
-//        Cart cart = user.getCart();
-//        cart.setMessage("Remove operation");
-//
-//        List<Item> cartItems = cart.getItems();
-//        cartItems.remove(itemToRemove);
-//        if (cartItems.isEmpty()) {
-//            return constructEmptyCart(user);
-//        }
-//
-//        for (int i = 0; i < quantity; i++) {
-//            if (cartItems.contains(itemToRemove)) {
-//                var totalValue = cart.getTotal();
-//                var discount = itemToRemove.getDiscount();
-//                var itemInitialPrice = itemToRemove.getPrice();
-//                var totalDiscount = cart.getTotalDiscount();
-//
-//                totalValue = cart.getTotal();
-//                totalValue = totalValue.subtract((itemInitialPrice.subtract(discount)));
-//                cart.setTotal(totalValue);
-//                cartItems.remove(itemToRemove);
-//            }
-//            cart = checkoutService.applyCheckoutDetails(cart);
-//        }
-//        return cart;
-//    }

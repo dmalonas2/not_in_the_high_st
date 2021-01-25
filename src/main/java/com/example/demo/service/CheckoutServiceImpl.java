@@ -33,7 +33,6 @@ public class CheckoutServiceImpl implements CheckoutService{
     private Cart passCartThroughDiscountsFilter(Cart cart) {
         /*  STEP 1: SET UP                                  */
         var initialTotalValue = cart.getInitialTotalValue();
-        /*  STEP 2: GET HYPOTHETICAL CARTS                  */
         //Finish setting up the initial cart
         finishInitialCartSetup(cart);
         //Quantity threshold discount
