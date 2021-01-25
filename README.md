@@ -10,3 +10,7 @@ Testing implemented using unit tests and by manually testing the api (in the API
 * Quantity-based  (e.g. discount for buying X or more B items)
 * Threshold-based (e.g. discount for buying products that in total (and after the quantity-based discount has been applied) cost more than an Admin defined value)
 * ...potential to add more complex discount bundles
+
+
+## Code future improvements
+* Remove iterative sections of code in favor of lambdas and streams
