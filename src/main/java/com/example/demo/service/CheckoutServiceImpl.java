@@ -19,14 +19,9 @@ public class CheckoutServiceImpl implements CheckoutService{
     @Autowired CartRepository cartRepository;
     @Autowired ItemRepository itemRepository;
 
-
     private static final BigDecimal DISCOUNT = new BigDecimal(10);
     private static final BigDecimal ONE_HUNDRED                   = new BigDecimal(100);
-    private static final BigDecimal DISCOUNTED_PRICE_CARD_HOLDERS   = new BigDecimal(8.25);
     private static final BigDecimal PRICE_DISCOUNT_THRESHOLD        = BigDecimal.valueOf(60);
-    private static final int        DISCOUNT_THRESHOLD_CARD_HOLDERS = 2;
-    private static final int CARD_HOLDERS_ID                 = 1;
-    private static final BigDecimal CARD_HOLDERS_DISCOUNT = new BigDecimal(0.75);
 
 
     //Implement discount logic
@@ -36,64 +31,48 @@ public class CheckoutServiceImpl implements CheckoutService{
 
 
     private Cart passCartThroughDiscountsFilter(Cart cart) {
-
         /*  STEP 1: SET UP                                  */
         var initialTotalValue = cart.getInitialTotalValue();
-
         /*  STEP 2: GET HYPOTHETICAL CARTS                  */
         //Finish setting up the initial cart
         finishInitialCartSetup(cart);
-        //Total price threshold (e.g. £60) discount
-        Cart priceThresholdDiscountedCart = getPriceThresholdCart(cart);
         //Quantity threshold discount
-        Cart quantityThresholdDiscountedCart = getQuantityThresholdCart(cart);
+        quantityThresholdFilter(cart);
+        //Total price threshold (e.g. £60) discount
+        totalPriceThresholdFilter(cart);
         //FUTURE--->Bundle of different products threshold dicount
         //*************************************
-
-
-        /*  STEP 3: CHOOSE ONE CART                         */
-        BigDecimal bestTotalPrice = cart.getTotal().min(quantityThresholdDiscountedCart.getTotal())
-                                                 .min(priceThresholdDiscountedCart.getTotal());
-        if(bestTotalPrice.equals(cart.getTotal())) {
-            for (int i = 0; i < cart.getItems().size(); i++) {
-                cart.getItems().get(i).setDiscount(BigDecimal.ZERO);
-            }
-            return cart;
-        }
-        if (bestTotalPrice.equals(priceThresholdDiscountedCart.getTotal())) {
-            priceThresholdDiscountedCart.setItems(updateIndividualDiscountField(priceThresholdDiscountedCart));
-            return priceThresholdDiscountedCart;
-        }
-        return quantityThresholdDiscountedCart;
+        return cart;
     }
 
-    private Cart getQuantityThresholdCart(Cart cart) {
-        Cart quantityThresholdCart = new Cart();
-        quantityThresholdCart.setInitialTotalValue(cart.getInitialTotalValue());
-        quantityThresholdCart.setTotal(cart.getTotal());
-        quantityThresholdCart.setItems(cart.getItems());
-        quantityThresholdCart.setId(cart.getId());
-        quantityThresholdCart.setUser(cart.getUser());
-        quantityThresholdCart.setMessage("Quantity based discount is applied");
+    private void quantityThresholdFilter(Cart cart) {
 
         BigDecimal totalDiscount = BigDecimal.ZERO;
         BigDecimal cnt = new BigDecimal(0);
         List<Long> idsChekcked = new ArrayList<>();
-        final var items = quantityThresholdCart.getItems();
+        var items = cart.getItems();
         final var size = items.size();
         for (int i = 0; i < size; i++) {
             if (idsChekcked.contains(items.get(i).getId()) ||
-                items.get(i).getQuantityDiscountValue().equals(BigDecimal.ZERO)) {
+                items.get(i).getQuantityDiscountThreshold().compareTo(BigDecimal.ZERO) == 0) {
                 continue;
             }
             cnt = cnt.add(BigDecimal.valueOf(1));
+
+            for (int j = i + 1; j < size; j++) {
+                if (items.get(j).getId() == items.get(i).getId()) {
+                    cnt = cnt.add(BigDecimal.valueOf(1));
+                }
+            }
             final var quantityDiscountThreshold = items.get(i).getQuantityDiscountThreshold();
-            if (cnt.compareTo(quantityDiscountThreshold) == 0) {
+            if (cnt.compareTo(quantityDiscountThreshold) >= 0) {
+                cart.setMessage("Quantity based discount is applied");
                 for (int k = 0; k < size; k++) {
                     if (items.get(k).getId() == items.get(i).getId()) {
                         final var item = items.get(k);
                         item.setDiscount(item.getPrice().subtract(item.getQuantityDiscountValue()));
-                        final BigDecimal discount = item.getDiscount();//items.get(k).getPrice().subtract(items.get(k).getQuantityDiscountValue());
+                        final BigDecimal discount = item.getDiscount();
+                        cart.getItems().get(k).setDiscount(discount);
                         totalDiscount = totalDiscount.add(discount);
                     }
                 }
@@ -101,51 +80,27 @@ public class CheckoutServiceImpl implements CheckoutService{
             }
 
         }
-        quantityThresholdCart.setTotal(cart.getTotal().subtract(totalDiscount));
-        quantityThresholdCart.setTotalDiscount(totalDiscount);
-        return quantityThresholdCart;
+        cart.setTotal(cart.getTotal().subtract(totalDiscount));
+        cart.setTotalDiscount(totalDiscount);
     }
-
-    private List<Item> updateIndividualDiscountField(Cart cart) {
-        List<Item> items = cart.getItems();
-        for (int i = 0; i < items.size(); i++) {
-            items.get(i).setDiscount(getDiscountedPrice(items.get(i).getPrice(), DISCOUNT));
-        }
-        return items;
-    }
-
 
     private void finishInitialCartSetup(Cart cart) {
         cart.setTotal(cart.getInitialTotalValue());
         cart.setTotalDiscount(BigDecimal.ZERO);
         cart.setMessage("No discount applied");
-    }
-
-
-    private Cart getPriceThresholdCart(Cart cart) {
-        BigDecimal initialTotalValue = cart.getInitialTotalValue();
-        if (initialTotalValue.compareTo(PRICE_DISCOUNT_THRESHOLD) > 0) {
-            Cart priceThresholdCart = new Cart();
-            priceThresholdCart.setInitialTotalValue(cart.getInitialTotalValue());
-            priceThresholdCart.setItems(cart.getItems());
-            priceThresholdCart.setId(cart.getId());
-            priceThresholdCart.setUser(cart.getUser());
-//            priceThresholdCart.setMessage(cart.getMessage());
-            priceThresholdCart.setTotal(getDiscountedPrice(initialTotalValue, DISCOUNT));
-            priceThresholdCart.setTotalDiscount(initialTotalValue.subtract(priceThresholdCart.getTotal()));
-            priceThresholdCart.setMessage(DISCOUNT + "% discount is applied for purchases that are above " + PRICE_DISCOUNT_THRESHOLD);
-            return priceThresholdCart;
+        for (int i = 0; i < cart.getItems().size(); i++) {
+            cart.getItems().get(i).setDiscount(BigDecimal.ZERO);
         }
-        return cart;
     }
 
 
-    private void applyTotalPriceDiscount(Cart cart) {
-
-    }
-
-    private void applyQuantityDiscount(Cart cart) {
-
+    private void totalPriceThresholdFilter(Cart cart) {
+        BigDecimal totalAfterQuantityReductions = cart.getTotal();
+        if (totalAfterQuantityReductions.compareTo(PRICE_DISCOUNT_THRESHOLD) > 0) {
+            cart.setTotal(getDiscountedPrice(totalAfterQuantityReductions, DISCOUNT));
+            cart.setTotalDiscount(cart.getInitialTotalValue().subtract(cart.getTotal()));
+            cart.setMessage(cart.getMessage() + " and " + DISCOUNT + "% discount is applied because the order is above " + PRICE_DISCOUNT_THRESHOLD);
+        }
     }
 
     private BigDecimal getDiscountedPrice(BigDecimal initialValue, BigDecimal discountPercentage) {
